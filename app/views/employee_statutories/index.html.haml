@@ -17,19 +17,19 @@
       %td= employee_statutory.pan
       %td
         -if employee_statutory.pan_effective_date?
-          = l employee_statutory.pan_effective_date, :format => OptionSetting.date_format_type("",2)
+          = l employee_statutory.pan_effective_date, :format => Global.instance.date_format_type
         - else
           = employee_statutory.pan_effective_date
       %td= employee_statutory.pf_number
       %td
         -if employee_statutory.pf_effective_date?
-          = l employee_statutory.pf_effective_date, :format => OptionSetting.date_format_type("",2)
+          = l employee_statutory.pf_effective_date, :format => Global.instance.date_format_type
         - else
           = employee_statutory.pf_effective_date
       %td= employee_statutory.esi
       %td= employee_statutory.esi_effective_date
         -if employee_statutory.esi_effective_date?
-          = l employee_statutory.esi_effective_date, :format => OptionSetting.date_format_type("",2)
+          = l employee_statutory.esi_effective_date, :format => Global.instance.date_format_type
         - else
           = employee_statutory.esi_effective_date
       %td= link_to 'Show', employee_statutory

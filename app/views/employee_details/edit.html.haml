@@ -2,6 +2,6 @@
   %ul
     %li= link_to 'Back', employee_details_path(:param1=>@paramempid)
 #right_content
-  %h1 Editing Classification for #{Employee.find_by_id(@paramempid).empname}
+  %h1 Editing Classification for #{Employee.find_by_id(@paramempid).empname}(#{@paramempid})
   = render 'form', :employee_detail => @employee_detail, :paramempid => @paramempid, :classification_headings => @classification_headings
 

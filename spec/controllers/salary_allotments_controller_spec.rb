@@ -61,8 +61,16 @@ describe SalaryAllotmentsController do
       salary_head = FactoryGirl.create(:salary_head)
       salary_group_detail = FactoryGirl.create(:salary_group_detail,:salary_head_id=>salary_head.id)
       salAllot = FactoryGirl.create(:salary_allotment,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id)
-      post :update, :id => salAllot.id, :salAllotment => [salAllot.attributes.merge(:salary_allotment => 2222.00)]
+      post :update, :id => salAllot.id, :salAllotment => [salAllot.attributes.merge(:salary_allotment => 2222.00,:month_year=>"Feb/2011")]
       SalaryAllotment.find_by_id(salAllot.id)[:salary_allotment].should eq(2222.00)
+    end
+
+    it "should insert the salary allotted amount of month_year is different from effective date" do
+      salary_head = FactoryGirl.create(:salary_head)
+      salary_group_detail = FactoryGirl.create(:salary_group_detail,:salary_head_id=>salary_head.id)
+      salAllot = FactoryGirl.create(:salary_allotment,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id)
+      expect {
+        post :update, :id => salAllot.id, :salAllotment => [salAllot.attributes.merge(:salary_allotment => 2222.00,:month_year=>"Mar/2011")]}.to change(SalaryAllotment, :count).by(1)
     end
   end
 

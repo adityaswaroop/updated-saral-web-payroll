@@ -13,7 +13,7 @@
       %td.table_grid_td= employee.gender
       %td.table_grid_td
         -if employee.date_of_joining?
-          = l employee.date_of_joining, :format => OptionSetting.date_format_type("",2)
+          = l employee.date_of_joining, :format => Global.instance.date_format_type
         - else
           = employee.date_of_joining
       %td.table_grid_td= employee.email

@@ -437,7 +437,7 @@ namespace :bootstrap do
 
   desc "Company document's file upload Type "
   task :upload_file_type => :environment do
-    UploadFileType.create(:max_file_size => 5120, :file_type => "application/pdf,application/doc")
+    UploadFileType.create(:max_file_size => 5120, :file_type => "application/pdf,application/msword,application/vnd.ms-excel,text/plain")
   end
 
   desc "Create PF Group 'Default'"

@@ -3,5 +3,5 @@
     %li= link_to 'Back', employee_path(@employee_id)
 #right_content
   %h1
-    Editing Employee Statutory
+    Editing Statutory for #{Employee.find(@employee_id).empname}(#{@employee_id})
   = render 'form', :employee_statutory => @employee_statutory, :display_panoption => @display_panoption,:vpf_value => @vpf_value, :chk_pf_percentg => @chk_pf_percentg

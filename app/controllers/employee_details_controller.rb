@@ -21,9 +21,10 @@ class EmployeeDetailsController < ApplicationController
   # GET /employee_details/1
   # GET /employee_deta  ils/1.json
   def show
-    @paramempid = params[:param2]
+    @paramempid = params[:param1]
     @employee_detail = EmployeeDetail.find(params[:id])
-
+    @classification_headings = ClassificationHeading.order('display_order')
+    @edit_yn = params[:edit_yn]
     respond_to do |format|
       format.html # show.html.haml
       format.json { render json: @employee_detail }

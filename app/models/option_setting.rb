@@ -14,10 +14,10 @@ class OptionSetting < ActiveRecord::Base
 
   def self.date_format_type date_value,opt_value
      if date_value != "" && opt_value == 1
-       date=date_value.strftime(self.date_format_value)
+       date=date_value.strftime(Global.instance.date_format_type)
      end
      if date_value == "" && opt_value == 2
-       date=date_format_value
+       date=Global.instance.date_format_type
      end
      return date
   end

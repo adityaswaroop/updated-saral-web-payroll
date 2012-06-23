@@ -38,7 +38,7 @@
         &nbsp;
     %tr
       %td.std_td
-        = form_tag edit_salary_allotment_path, :method => :get do
+        = form_tag edit_salary_allotment_path(params[:id]), :method => :get do
           %table.table_grid{:width=>757, :cellpadding => 0, :cellspacing => 3}
             = hidden_field_tag "salAllotment[][id]", params[:id]
             %tr

@@ -23,20 +23,20 @@
                 %td PAN Effective Date:&nbsp;
                 %td
                 - if @employee_statutory.pan_effective_date != nil
-                  = l @employee_statutory.pan_effective_date, :format => :default
+                  = l @employee_statutory.pan_effective_date, :format => Global.instance.date_format_type
                 - else
                   = ""
               %tr
                 %td PF Effective Date:&nbsp;
                 %td
                 - if @employee_statutory.pf_effective_date != nil
-                  = l @employee_statutory.pf_effective_date, :format => :default
+                  = l @employee_statutory.pf_effective_date, :format => Global.instance.date_format_type
                 - else
                   = ""
               %tr
                 %td ESI Effective Date:&nbsp;
                 %td
                 - if @employee_statutory.esi_effective_date != nil
-                  = l @employee_statutory.esi_effective_date, :format => :default
+                  = l @employee_statutory.esi_effective_date, :format => Global.instance.date_format_type
                 - else
                   = ""

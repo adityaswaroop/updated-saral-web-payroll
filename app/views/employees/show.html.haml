@@ -45,7 +45,7 @@
                   %td Date of Birth:&nbsp;
                   %td
                     - if @employee.date_of_birth?
-                      = l @employee.date_of_birth, :format => OptionSetting.date_format_type("",2)
+                      = l @employee.date_of_birth, :format => Global.instance.date_format_type
                     - else
                       = ""
 
@@ -64,7 +64,7 @@
                   %td Date of Joining:&nbsp;
                   %td{:colspan=>2}
                     - if @employee.date_of_joining?
-                      = l @employee.date_of_joining, :format => OptionSetting.date_format_type("",2)
+                      = l @employee.date_of_joining, :format => Global.instance.date_format_type
                     - else
                       = ""
 
@@ -165,7 +165,7 @@
                               %td Probation completion Date:&nbsp;
                               %td
                                 - if @employee.probation_complete_date?
-                                  = l @employee.probation_complete_date, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.probation_complete_date, :format => Global.instance.date_format_type
                                 - else
                                   = ""
                             %tr
@@ -177,14 +177,14 @@
                               %td Date of Salary:&nbsp;
                               %td{:colspan=>2}
                                 - if @employee.salary_start_date?
-                                  = l @employee.salary_start_date, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.salary_start_date, :format => Global.instance.date_format_type
                                 - else
                                   = ""
                             %tr
                               %td Confirmation Date:&nbsp;
                               %td
                                 - if @employee.confirmation_date?
-                                  = l @employee.confirmation_date, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.confirmation_date, :format => Global.instance.date_format_type
                                 - else
                                   = ""
 
@@ -199,14 +199,14 @@
                               %td Date of Leaving:&nbsp;
                               %td
                                 - if @employee.date_of_leaving != nil
-                                  = l @employee.date_of_leaving, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.date_of_leaving, :format => Global.instance.date_format_type
                                 - else
                                   = ""
                             %tr
                               %td Date of Retirement:&nbsp;
                               %td
                                 - if @employee.retirement_date?
-                                  = l @employee.retirement_date, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.retirement_date, :format => Global.instance.date_format_type
                                 - else
                                   = ""
                             %tr
@@ -221,7 +221,7 @@
                               %td Resignation Date:&nbsp;
                               %td
                                 -if @employee.resignation_date?
-                                  = l @employee.resignation_date, :format => OptionSetting.date_format_type("",2)
+                                  = l @employee.resignation_date, :format => Global.instance.date_format_type
                                 - else
                                   = ""
                             %tr

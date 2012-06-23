@@ -1,7 +1,14 @@
-%table
-  %tr
-    %td{:width=>130}= ch.classification_heading_name
-    %td= select_tag "employee_detail[classification][#{ch.id}]",options_from_collection_for_select(Classification.where(:classification_heading_id => ch.id),"id","classification_name",employee_detail[:classification]!= nil ? employee_detail[:classification]["#{ch.id}"] : ''), :prompt => "Select #{ch.classification_heading_name}"
+- if !show_yn
+  %table
+    %tr
+      %td{:width=>130}= ch.classification_heading_name
+      %td= select_tag "employee_detail[classification][#{ch.id}]",options_from_collection_for_select(Classification.where(:classification_heading_id => ch.id),"id","classification_name",employee_detail[:classification]!= nil ? employee_detail[:classification]["#{ch.id}"] : ''), :prompt => "Select #{ch.classification_heading_name}"
+- else
+  %table
+    - employee_detail[:classification].each do |key,val|
+      %tr
+        %td{:width=>130}= ClassificationHeading.find(key).classification_heading_name
+        %td= Classification.find(val).classification_name
 
 
 

@@ -11,6 +11,7 @@ class EmployeeDetail < ActiveRecord::Base
   belongs_to :salary_group
   belongs_to :financial_institution
   belongs_to :branch
+  belongs_to :attendance_configuration
 
   has_many :salary_allotments, :dependent => :destroy
   has_many :salaries, :dependent => :destroy

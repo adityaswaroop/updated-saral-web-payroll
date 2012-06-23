@@ -24,7 +24,7 @@
                                     %tr
                                         %td Estd. Date:&nbsp;
                                         - if @company.dateofestablishment?
-                                            %td= l @company.dateofestablishment, :format => OptionSetting.date_format_type("",2)
+                                            %td= l @company.dateofestablishment, :format => Global.instance.date_format_type
                                         -else
                                             %td= @company.dateofestablishment
                                     %tr

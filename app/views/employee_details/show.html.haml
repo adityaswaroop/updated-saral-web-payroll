@@ -1,15 +1,58 @@
-%p
-  %b Employee:
-  = @employee_detail.employee_empname
-%p
-  %b Effective Date:
-  = @employee_detail.effective_date
-%p
-  %b Salary Group:
-  = @employee_detail.salary_group_salary_group_name
-%p
-  %b Allotted Gross:
-  = @employee_detail.allotted_gross
-= link_to 'Edit', edit_employee_detail_path(@employee_detail)
-|
-= link_to 'Back', employee_details_path(:param1=>@paramempid)
+#left_content
+  %ul
+    %li= link_to 'Back', employee_details_path(:param1=>@paramempid )
+    - if @edit_yn == 'yes'
+      %li= link_to 'Edit Employee Classification', edit_employee_detail_path(@employee_detail,:param1=>@paramempid)
+#right_content
+  %h1
+    = 'Showing Classification for '+@employee_detail.employee.empname+'('+@paramempid+')'
+    - if @edit_yn == 'yes'
+      = link_to image_tag('/assets/edit.png',:title => "Edit Employee Classification"), edit_employee_detail_path(@employee_detail,:param1=>@paramempid)
+  %table.std_table{:cellpadding=>0,:cellspacing=>0}
+    %tr
+      %td
+        %table
+          %tr
+            %td{:colspan=>2}
+              - flash.each do |name, msg|
+                = content_tag :div, msg, :id => "flash_#{name}"
+          %tr
+            %td.std_td
+              %table
+                %tr
+                  %td{:width=>130} Effective From:&nbsp;
+                  %td= @employee_detail.effective_date
+                %tr
+                  %td{:width=>130} Salary Group:&nbsp;
+                  %td= @employee_detail.salary_group.salary_group_name
+                %tr
+                  %td{:width=>130} Branch:&nbsp;
+                  %td= @employee_detail.branch.branch_name
+                %tr
+                  %td{:width=>130} International Worker:&nbsp;
+                  %td= @employee_detail.international_worker == true ? 'Yes' : 'No'
+            %td.std_td
+              %table
+                %tr
+                  %td{:width=>130} Effective To:&nbsp;
+                  -if !@employee_detail.effective_to.blank?
+                    %td= l @employee_detail.effective_to, :format => OptionSetting.date_format_type("",2)
+                  - else
+                    %td Till Date
+                %tr
+                  %td{:width=>130} Attn. Structure:&nbsp;
+                  %td= @employee_detail.attendance_configuration.attendance
+                %tr
+                  %td{:width=>130} Bank:&nbsp;
+                  %td= @employee_detail.financial_institution.name
+                %tr
+                  %td{:width=>130} Bank A/c No.:&nbsp;
+                  %td= @employee_detail.bank_account_number
+          %tr
+            %td.std_td
+              %table
+                %tr
+                  %td
+                    -#- @classification_headings.each do |ch|
+                    = render 'classification', :ch => @classification_headings, :employee_detail => @employee_detail,:show_yn=>true
+

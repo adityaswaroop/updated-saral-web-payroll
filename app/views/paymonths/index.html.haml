@@ -3,42 +3,58 @@
     %li= link_to 'Add New Pay Month', new_paymonth_path
 #right_content
   %h1 Listing Pay Months
-  %table.std_table{:cellpadding=>0,:cellspacing=>0}
-    %tr
-      %td &nbsp;
-    %tr
-      %td.std_td
-        %table.table_grid{:width=>600, :cellpadding => 0, :cellspacing => 3}
-          %tr
-            %td{:colspan=>4}
-              - flash.each do |name, msg|
-                = content_tag :div, msg, :id => "flash_#{name}", :style => "color:#e9322d"
-          %tr
-            %td.table_grid_header Month Name
-            %td.table_grid_header Number of Days
-            %td.table_grid_header From Date
-            %td.table_grid_header To Date
-            %td.table_grid_header{:colspan =>2} Operations
-          - @paymonths.each do |paymonth|
-            %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
-              %td.table_grid_td= paymonth.month_name
-              %td.table_grid_td= paymonth.number_of_days
-              %td.table_grid_td
-                - if paymonth.from_date?
-                  = l paymonth.from_date, :format => OptionSetting.date_format_type("",2)
-                - else
-                  = l paymonth.from_date
-              %td.table_grid_td
-                - if paymonth.to_date?
-                  = l paymonth.to_date, :format => OptionSetting.date_format_type("",2)
-                - else
-                  = l paymonth.to_date
-              %td.table_grid_icon= link_to image_tag('/assets/show.png',:title => "Show Pay Month"), paymonth
-              %td.table_grid_icon= link_to image_tag('/assets/delete.png',:title => "Destroy Pay Month"), paymonth, :data=>{:confirm => 'Are you sure?'}, method: :delete
-        %br/
-        .digg_pagination
-          .page_info
-            = page_entries_info @paymonths
-          = will_paginate @paymonths, :container => false
-    %tr
-      %td &nbsp;
+  = form_tag '/paymonths/save', :method => :post do
+    %table.std_table{:cellpadding=>0,:cellspacing=>0}
+      %tr
+        %td &nbsp;
+      %tr
+        %td.std_td
+          %table.table_grid{:width=>700, :cellpadding => 0, :cellspacing => 3}
+            %tr
+              %td{:colspan=>4}
+                - flash.each do |name, msg|
+                  = content_tag :div, msg, :id => "flash_#{name}", :style => "color:#e9322d"
+            %tr
+              %td.table_grid_header Month Name
+              %td.table_grid_header Number of Days
+              %td.table_grid_header From Date
+              %td.table_grid_header To Date
+              %td.table_grid_header Lock Month
+              %td.table_grid_header Default Month
+              %td.table_grid_header{:colspan =>2} Operations
+              - j=0
+            - @paymonths.each do |paymonth|
+
+              %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
+                %td.table_grid_td= paymonth.month_name
+                %td.table_grid_td= paymonth.number_of_days
+                %td.table_grid_td
+                  - if paymonth.from_date?
+                    = l paymonth.from_date, :format => Global.instance.date_format_type
+                  - else
+                    = l paymonth.from_date
+                %td.table_grid_td
+                  - if paymonth.to_date?
+                    = l paymonth.to_date, :format => Global.instance.date_format_type
+                  - else
+                    = l paymonth.to_date
+                %td.table_grid_td= check_box_tag "Lock_Month[#{j}]",j,paymonth.month_locked,:onclick=>"update(this,'chk_box')"
+                %td.table_grid_td= radio_button_tag "default_month",j, paymonth.default_month, :class => "default_month",:onclick=>"update(this,'rd_btn')"
+                %td.table_grid_icon= link_to image_tag('/assets/show.png',:title => "Show Pay Month"), paymonth
+                %td.table_grid_icon= link_to image_tag('/assets/delete.png',:title => "Destroy Pay Month"), paymonth, :data=>{:confirm => 'Are you sure?'}, method: :delete
+                %td= hidden_field_tag "paymonth[#{j}][paymonth_id]",paymonth.id
+                %td= hidden_field_tag "paymonth[#{j}][Lock_Month]",paymonth.month_locked
+                %td= hidden_field_tag "paymonth[#{j}][default_month]",paymonth.default_month
+
+              - j=j+1
+            %tr
+              %td{:colspan=>2}= submit_tag "Update"
+              %td= hidden_field_tag "paymonth_count",@count
+          %br/
+          .digg_pagination
+            .page_info
+              = page_entries_info @paymonths
+            = will_paginate @paymonths, :container => false
+
+      %tr
+        %td &nbsp;

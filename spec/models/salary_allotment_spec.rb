@@ -23,6 +23,51 @@ describe SalaryAllotment do
     SalaryAllotment.get_allotted_salaries_for_max_effective_date("Feb/2011", sal_allot.employee_id).should be_true
   end
 
+  describe "get row for salary_allotment" do
+    it "give allotted salary for same pay month in which salary is allotted" do
+      employee = FactoryGirl.create(:employee)
+      salary_head = FactoryGirl.create(:salary_head)
+      salary_group = FactoryGirl.create(:salary_group)
+      salary_group_detail = FactoryGirl.create(:salary_group_detail,:salary_group_id=>salary_group.id,:salary_head_id=>salary_head.id)
+      attendance_configuration = FactoryGirl.create(:attendance_configuration)
+      financial_institution = FactoryGirl.create(:financial_institution)
+      branch = FactoryGirl.create(:branch)
+      employee_detail = FactoryGirl.create(:employee_detail,:salary_group_id=>salary_group.id,:branch_id=>branch.id,:attendance_configuration_id=>attendance_configuration.id,:financial_institution_id=>financial_institution.id)
+      salary_allotment = FactoryGirl.create(:salary_allotment,:employee_id=>employee.id,:employee_detail_id=>employee_detail.id,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id)
+      sal_allot = SalaryAllotment.row_for_salary_allotment employee.id, "Earnings", "Feb/2011"
+      sal_allot.should eq([salary_allotment])
+    end
+
+    it "give allotted salary wrt max effective date for different pay month in which salary is not allotted" do
+      employee = FactoryGirl.create(:employee)
+      salary_head = FactoryGirl.create(:salary_head)
+      salary_group = FactoryGirl.create(:salary_group)
+      salary_group_detail = FactoryGirl.create(:salary_group_detail,:salary_group_id=>salary_group.id,:salary_head_id=>salary_head.id)
+      attendance_configuration = FactoryGirl.create(:attendance_configuration)
+      financial_institution = FactoryGirl.create(:financial_institution)
+      branch = FactoryGirl.create(:branch)
+      employee_detail = FactoryGirl.create(:employee_detail,:salary_group_id=>salary_group.id,:branch_id=>branch.id,:attendance_configuration_id=>attendance_configuration.id,:financial_institution_id=>financial_institution.id)
+      salary_allotment = FactoryGirl.create(:salary_allotment,:employee_id=>employee.id,:employee_detail_id=>employee_detail.id,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id)
+      sal_allot = SalaryAllotment.row_for_salary_allotment employee.id, "Earnings", "Mar/2011"
+      sal_allot.should eq([salary_allotment])
+    end
+
+    it "give allotted salary for different pay month in which salary is not allotted and it is also not max effective date" do
+      employee = FactoryGirl.create(:employee)
+      salary_head = FactoryGirl.create(:salary_head)
+      salary_group = FactoryGirl.create(:salary_group)
+      salary_group_detail = FactoryGirl.create(:salary_group_detail,:salary_group_id=>salary_group.id,:salary_head_id=>salary_head.id)
+      attendance_configuration = FactoryGirl.create(:attendance_configuration)
+      financial_institution = FactoryGirl.create(:financial_institution)
+      branch = FactoryGirl.create(:branch)
+      employee_detail = FactoryGirl.create(:employee_detail,:salary_group_id=>salary_group.id,:branch_id=>branch.id,:attendance_configuration_id=>attendance_configuration.id,:financial_institution_id=>financial_institution.id)
+      salary_allotment1 = FactoryGirl.create(:salary_allotment,:employee_id=>employee.id,:employee_detail_id=>employee_detail.id,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id)
+      salary_allotment2 = FactoryGirl.create(:salary_allotment,:employee_id=>employee.id,:employee_detail_id=>employee_detail.id,:salary_group_detail_id=>salary_group_detail.id,:salary_head_id=>salary_head.id,:effective_date=>'2011-05-01')
+      sal_allot = SalaryAllotment.row_for_salary_allotment employee.id, "Earnings", "Apr/2011"
+      sal_allot.should eq([salary_allotment1])
+    end
+  end
+
   describe "generation of formula" do
     before :each do
       @salHeadBasic = FactoryGirl.create(:salary_head)

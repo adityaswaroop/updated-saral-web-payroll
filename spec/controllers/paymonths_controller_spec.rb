@@ -42,6 +42,15 @@ describe PaymonthsController do
     end
   end
 
+  describe "POST save" do
+    it "updates the default month and locked month for the existing paymonths" do
+      paymonth_first = FactoryGirl.create(:paymonth)
+      paymonth_sec = FactoryGirl.create(:paymonth,:month_name=>'Jan/2011')
+      post :save, "paymonth"=>{"0"=>{"paymonth_id"=>"#{paymonth_first.id}", "Lock_Month"=>"true", "default_month"=>"false"}, "1"=>{"paymonth_id"=>"#{paymonth_sec.id}", "Lock_Month"=>"true", "default_month"=>"true"}}
+      Paymonth.first.month_locked.should be(true)
+    end
+  end
+
   describe "POST create" do
     describe "with valid params" do
       it "creates a new Paymonth" do

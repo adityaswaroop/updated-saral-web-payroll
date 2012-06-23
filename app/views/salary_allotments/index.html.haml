@@ -36,7 +36,7 @@
                     %td.table_grid_td= not_allot_sal.empname
                     %td.table_grid_td
                       - if not_allot_sal.date_of_joining?
-                        = l not_allot_sal.date_of_joining, :format => OptionSetting.date_format_type("",2)
+                        = l not_allot_sal.date_of_joining, :format => Global.instance.date_format_type
                       - else
                         = l not_allot_sal.date_of_joining
                     %td.table_grid_icon= link_to "Allot Salary", edit_salary_allotment_path(not_allot_sal.id)
@@ -59,7 +59,7 @@
                     %td.table_grid_td= allotted_sal.empname
                     %td.table_grid_td
                       - if allotted_sal.date_of_joining?
-                        = l allotted_sal.date_of_joining, :format => OptionSetting.date_format_type("",2)
+                        = l allotted_sal.date_of_joining, :format => Global.instance.date_format_type
                       - else
                         = l allotted_sal.date_of_joining
                     %td.table_grid_icon= link_to image_tag('/assets/edit.png',:title => "Edit Allotted Salary"), edit_salary_allotment_path(allotted_sal.id,:param1=>@param_selected_tab)

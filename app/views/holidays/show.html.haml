@@ -23,7 +23,7 @@
               %table
                 %tr
                   %td{:width=>130} Date:&nbsp;
-                  %td= l @holiday.holiday_date, :format => OptionSetting.date_format_type("",2)
+                  %td= l @holiday.holiday_date, :format => Global.instance.date_format_type
                 %tr
                   %td{:width=>130} National Holiday:&nbsp;
                   %td= (@holiday.national_holiday == true)?"Yes":"No"

@@ -58,7 +58,7 @@
                       %tr
                         %td{:colspan=>2}
                           - classification_headings.each do |ch|
-                            = render 'classification', :ch => ch, :employee_detail => employee_detail
+                            = render 'classification', :ch => ch, :employee_detail => employee_detail,:show_yn=>false
                       %tr
                         %td &nbsp;
                       %tr

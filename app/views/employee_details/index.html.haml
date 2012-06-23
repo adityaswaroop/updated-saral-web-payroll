@@ -3,7 +3,7 @@
     %li= link_to 'Back', employees_path
     %li= link_to 'Add New Classification', new_employee_detail_path(:param1 => @paramempid)
 #right_content
-  %h1 Listing Classifications for #{Employee.find_by_id(@paramempid).empname}
+  %h1 Listing Classifications for #{Employee.find_by_id(@paramempid).empname}(#{@paramempid})
   %table.std_table{:cellpadding=>0,:cellspacing=>0}
     %tr
       %td &nbsp;
@@ -18,27 +18,29 @@
             %td.table_grid_header Effective From
             %td.table_grid_header Effective To
             %td.table_grid_header Salary Group
-            %td.table_grid_header Allotted Gross
-            %td.table_grid_header{:colspan => 2} Operations
+            %td.table_grid_header{:colspan => 3} Operations
           - sl_no = 0
           - @employee_details.each do |employee_detail|
           - sl_no = sl_no + 1
             %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
               %td.table_grid_td
                 - if employee_detail.effective_date?
-                  = l employee_detail.effective_date, :format => OptionSetting.date_format_type("",2)
+                  = l employee_detail.effective_date, :format => Global.instance.date_format_type
                 - else
                   = employee_detail.effective_date
               %td.table_grid_td
                 - if employee_detail.effective_to?
-                  = l employee_detail.effective_to, :format => OptionSetting.date_format_type("",2)
+                  = l employee_detail.effective_to, :format => Global.instance.date_format_type
                 - else
                   = 'Till Date'
               %td.table_grid_td= employee_detail.salary_group_salary_group_name
-              %td.table_grid_td= employee_detail.allotted_gross
               - if sl_no == 1
+                %td.table_grid_icon= link_to image_tag('/assets/show.png',:title => "Show Employee Details"), employee_detail_path(employee_detail,:param1=>@paramempid,:edit_yn=>'yes')
                 %td.table_grid_icon= link_to image_tag('/assets/edit.png',:title => "Edit Employee Details"), edit_employee_detail_path(employee_detail,:param1=>@paramempid)
                 %td.table_grid_icon= link_to image_tag('/assets/delete.png',:title => "Destroy Employee Details"), employee_detail, :data=>{:confirm => 'Are you sure?'}, method: :delete
+              - else
+                %td.table_grid_icon= link_to image_tag('/assets/show.png',:title => "Show Employee Details"), employee_detail_path(employee_detail,:param1=>@paramempid,:edit_yn=>'no')
+
         %br/
         .digg_pagination
           .page_info
