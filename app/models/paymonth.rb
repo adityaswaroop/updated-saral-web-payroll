@@ -41,6 +41,7 @@ class Paymonth < ActiveRecord::Base
   def paymonth_name
 
   end
+
   scope :months, :order => 'created_at DESC'
 
 end

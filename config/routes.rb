@@ -1,6 +1,8 @@
 UpdatedSaralWebPayroll::Application.routes.draw do
 
 
+  resources :tests
+
   resources :leave_takens do
     get 'upload', :on => :collection
     post 'upload_parse_validate', :on => :collection
