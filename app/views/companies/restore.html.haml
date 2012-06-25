@@ -17,7 +17,7 @@
                 %td.table_grid_header Last Salary Calculated On
                 %td.table_grid_header Backup Option
               %tr
-                %td.table_grid_td=l @bkup_util.backup_date, :format => :default
+                %td.table_grid_td=l @bkup_util.backup_date, :format => Global.instance.date_format_type
                 %td.table_grid_td= @bkup_util.employees_count
                 %td.table_grid_td=l @bkup_util.last_sal_calculated, :format => :type2
                 %td.table_grid_td= @bkup_util.backup_option

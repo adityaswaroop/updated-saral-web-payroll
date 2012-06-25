@@ -4,6 +4,7 @@ describe OptionSettingsController do
 
   before :each do
     controller.stub(:logged_in?).and_return(true)
+    date_format = FactoryGirl.create(:date_format)
   end
 
   def valid_attributes
@@ -11,7 +12,8 @@ describe OptionSettingsController do
         :country_id => 1,
         :time_zone => "(GMT+05:30) Kolkata",
         :currency => "rupee",
-        :salary_calc => "Jan/2012"
+        :salary_calc => "Jan/2012",
+        :date_format => "Y-m-d"
     }
   end
   
@@ -44,6 +46,7 @@ describe OptionSettingsController do
 
   describe "PUT update" do
     describe "with valid params" do
+
       it "updates the requested option_setting" do
         option_setting = OptionSetting.create! valid_attributes
         OptionSetting.any_instance.should_receive(:update_attributes).with({'these' => 'params'})

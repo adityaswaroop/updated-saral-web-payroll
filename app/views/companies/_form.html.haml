@@ -20,6 +20,7 @@
                 %tr
                   %td Estd. Date:&nbsp;
                   %td
+                    -#= l f.text_field :dateofestablishment, :id=>"doe", :class=>"date_input", :start_year => 1980, :end_year => 2012, :format => Global.instance.date_format
                     - if company.dateofestablishment?
                       = f.text_field :dateofestablishment, :id=>"doe", :class=>"date_input", :value => OptionSetting.date_format_type(company.dateofestablishment,1), :start_year => 1980, :end_year => 2012
                     - else

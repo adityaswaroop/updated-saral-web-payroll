@@ -20,3 +20,6 @@ en:
       default: "%d-%m-%Y"
       type1: "%d/%m/%Y"
       type2: "%b/%Y"
+      type3: "%m/%d/%Y"
+      type4: "%d/%m/%y"
+      type5: "%d-%m-%y"

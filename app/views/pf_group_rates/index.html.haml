@@ -22,7 +22,7 @@
             %td.table_grid_header{:colspan =>3} Operations
           - @pf_group_rates.each do |pf_group_rate|
             %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
-              %td.table_grid_td= l (Date.strptime(pf_group_rate.paymonth_month_name,"%b/%Y").beginning_of_month), :format => OptionSetting.date_format_type("",2)
+              %td.table_grid_td= l (Date.strptime(pf_group_rate.paymonth_month_name,"%b/%Y").beginning_of_month), :format => Global.instance.date_format_type
               %td.table_grid_td= pf_group_rate.to_date ? pf_group_rate.to_date : 'Till Date'
               %td.table_grid_td= pf_group_rate.cutoff
               %td.table_grid_td= pf_group_rate.epf

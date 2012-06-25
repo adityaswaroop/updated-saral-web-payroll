@@ -20,6 +20,7 @@ class CompaniesController < ApplicationController
 
   def create
     company=params[:company]
+    @company = Company.new(params[:company])
     date_format=OptionSetting.date_format_value
     if date_format == "%m-%Y-%d" || date_format == "%m/%d/%Y" || date_format == "%d/%m/%y" || date_format == "%d-%m-%y"
       dates_value=[company[:dateofestablishment]]

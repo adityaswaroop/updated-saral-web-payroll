@@ -104,6 +104,8 @@ FactoryGirl.define do
     from_date "2010-12-01"
     to_date "2010-12-31"
     month_name  "Dec/2010"
+    default_month false
+    month_locked false
   end
 
   factory :pf_esi_rate do

@@ -32,51 +32,6 @@
             %td
               = render "employee_list", :leave_taken_employees => leave_taken_employees,:employee_count => employee_count
 
-
-          -#%tr
-          -#  %td.std_td
-          -#    #table_wrappper
-          -#      #inner_table_wrapper
-          -#        %table.table_grid{:cellpadding => 0, :cellspacing => 3}
-          -#          %tr
-          -#            %td.table_grid_header Employee ID
-          -#            %td.table_grid_header Employee Name
-          -#            %td.table_grid_header Leave Days
-          -#            %td.table_grid_header Date(Leave)
-          -#            %td.table_grid_header LOP Days
-          -#            %td.table_grid_header Date(LOP)
-          -#          - j=0
-          -#          - @leave_taken_employees.each do |employee|
-          -#            %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
-          -#              %td.table_grid_td= employee[:refno]
-          -#              %td.table_grid_td= employee[:empname]
-          -#              %td.table_grid_td= text_field_tag "leave_takens[#{j}][leave_count]",'',:placeholder=> "Enter Count"
-          -#              %td
-          -#                %table
-          -#                  %tr
-          -#                    %td.table_grid_td= check_box_tag "leave_date_wise" ,j,nil,:onclick=>'leave_date(this)'
-          -#                  %tr
-          -#                    %td.table_grid_td= text_field_tag "leave_takens[#{j}][leave_from_date]",'', :class=>"date_input",:placeholder=> "From Date"
-          -#                    %td.table_grid_td= text_field_tag "leave_takens[#{j}][leave_to_date]",'', :class=>"date_input",:placeholder=> "To Date"
-          -#              %td.table_grid_td= text_field_tag "leave_takens[#{j}][lop_count]",'',:placeholder=> "Enter Count"
-          -#              %td
-          -#                %table
-          -#                  %tr
-          -#                    %td.table_grid_td= check_box_tag "lop_date_wise",j,nil,:onclick=>'lop_date(this)'
-          -#                  %tr
-          -#                    %td.table_grid_td= text_field_tag "leave_takens[#{j}][lop_from_date]",'', :class=>"date_input",:placeholder=> "From Date"
-          -#                    %td.table_grid_td= text_field_tag "leave_takens[#{j}][lop_to_date]",'', :class=>"date_input",:placeholder=> "To Date"
-          -#              = hidden_field_tag "leave_takens[#{j}][employee_id]", employee[:employee_id]
-          -#              - j=j+1
-          -#%tr
-          -#  %td= hidden_field_tag "employee_count",employee_count
-          -#%tr
-          -#  %td.std_td= submit_tag "Save",:id=>'save'
-
-
-
-
-
 %table
   %tr
     %td.std_td

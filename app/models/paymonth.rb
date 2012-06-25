@@ -1,5 +1,5 @@
 class Paymonth < ActiveRecord::Base
-  attr_accessible :month_year, :number_of_days, :from_date, :to_date,:month_name
+  attr_accessible :month_year, :number_of_days, :from_date, :to_date,:month_name,:default_month,:month_locked
   acts_as_audited
 
   has_many :pt_rates, :dependent => :restrict
@@ -36,6 +36,10 @@ class Paymonth < ActiveRecord::Base
   def self.next_paymonth
       last_paymonth = Date.strptime Paymonth.last.month_name, "%b/%Y"
       last_paymonth.next_month.strftime("%b/%Y")
+  end
+
+  def paymonth_name
+
   end
 
   scope :months, :order => 'created_at DESC'

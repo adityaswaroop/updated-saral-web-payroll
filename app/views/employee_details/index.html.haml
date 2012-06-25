@@ -25,12 +25,12 @@
             %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
               %td.table_grid_td
                 - if employee_detail.effective_date?
-                  = l employee_detail.effective_date, :format => OptionSetting.date_format_type("",2)
+                  = l employee_detail.effective_date, :format => Global.instance.date_format_type
                 - else
                   = employee_detail.effective_date
               %td.table_grid_td
                 - if employee_detail.effective_to?
-                  = l employee_detail.effective_to, :format => OptionSetting.date_format_type("",2)
+                  = l employee_detail.effective_to, :format => Global.instance.date_format_type
                 - else
                   = 'Till Date'
               %td.table_grid_td= employee_detail.salary_group_salary_group_name

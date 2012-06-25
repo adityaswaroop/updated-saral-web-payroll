@@ -2,6 +2,7 @@ class PaymonthsController < ApplicationController
 
   def index
     @paymonths = Paymonth.order('created_at DESC').paginate(:page => params[:page], :per_page => 10)
+    @count = @paymonths.count
   end
 
   def new
@@ -47,6 +48,17 @@ class PaymonthsController < ApplicationController
       respond_to do |format|
         format.html { render 'new' }
       end
+    end
+  end
+
+  def save
+    paymonths = params[:paymonth]
+    paymonths.each do |paymonth_det|
+      pay_month = Paymonth.find(paymonth_det[1]['paymonth_id'])
+      pay_month.update_attributes(:default_month=>paymonth_det[1]['default_month'],:month_locked=>paymonth_det[1]['Lock_Month'])
+    end
+    respond_to do |format|
+      format.html { redirect_to paymonths_url, notice: "Paymonths updated successfully." }
     end
   end
 

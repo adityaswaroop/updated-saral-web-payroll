@@ -15,7 +15,7 @@
         %table
           %tr
             %td{:style=>"width:130px"} Effective From:&nbsp;
-            %td= l Date.strptime(@pf_group_rate.paymonth_month_name,"%b/%Y").beginning_of_month, :format => OptionSetting.date_format_type("",2)
+            %td= l Date.strptime(@pf_group_rate.paymonth_month_name,"%b/%Y").beginning_of_month, :format => Global.instance.date_format_type
           %tr
             %td EPF(%) :&nbsp;
             %td= @pf_group_rate.epf

@@ -37,7 +37,7 @@
                                     %td.table_grid_header Backup Option
                                 -@backup_utils.each do |bck_util|
                                     %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
-                                        %td.table_grid_td=l bck_util.backup_date, :format => :default
+                                        %td.table_grid_td=l bck_util.backup_date, :format => Global.instance.date_format_type
                                         %td.table_grid_td= bck_util.employees_count
                                         %td.table_grid_td=l bck_util.last_sal_calculated, :format => :type2
                                         %td.table_grid_td= bck_util.backup_option

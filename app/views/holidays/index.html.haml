@@ -20,7 +20,7 @@
             %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
               %td.table_grid_td
                 - if holiday.holiday_date?
-                  = l holiday.holiday_date, :format => OptionSetting.date_format_type(holiday.holiday_date,1)
+                  = l holiday.holiday_date, :format => Global.instance.date_format_type
                 - else
                   = holiday.holiday_date
               %td.table_grid_td= holiday.description

@@ -15,6 +15,6 @@
       %td.table_grid_td=  employeeList.refno
       %td.table_grid_td=  employeeList.empname
       %td.table_grid_td=  employeeList.gender
-      %td.table_grid_td= l employeeList.date_of_joining, :format => :default
+      %td.table_grid_td= l employeeList.date_of_joining, :format => Global.instance.date_format_type
       %td.table_grid_td= employeeList.email
       %td.table_grid_td= check_box_tag "employee_data[][pf]", employeeList.restrct_pf ,employeeList.restrct_pf

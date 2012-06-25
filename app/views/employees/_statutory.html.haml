@@ -30,21 +30,21 @@
           %td{:width=>150} Effective Date(For PAN):&nbsp;
           %td{:width=>130}
             -if statutory.pan_effective_date?
-              = l statutory.pan_effective_date, :format => OptionSetting.date_format_type("",2)
+              = l statutory.pan_effective_date, :format => Global.instance.date_format_type
             - else
               = ""
         %tr
           %td{:width=>150} Effective Date(For PF):&nbsp;
           %td{:width=>130}
             -if statutory.pf_effective_date?
-              = l statutory.pf_effective_date, :format => OptionSetting.date_format_type("",2)
+              = l statutory.pf_effective_date, :format => Global.instance.date_format_type
             - else
               = ""
         %tr
           %td{:width=>150} Effective Date(For ESI):&nbsp;
           %td{:width=>130}
             -if statutory.esi_effective_date?
-              = l statutory.esi_effective_date, :format => OptionSetting.date_format_type("",2)
+              = l statutory.esi_effective_date, :format => Global.instance.date_format_type
             - else
               = ""
         %tr

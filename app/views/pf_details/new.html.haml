@@ -51,7 +51,7 @@
                     %td.table_grid_td= pf_detail.pf_group_pf_group
                     %td.table_grid_td
                       - if pf_detail.pf_effective_date?
-                        = l pf_detail.pf_effective_date, :format => OptionSetting.date_format_type("",2)
+                        = l pf_detail.pf_effective_date, :format => Global.instance.date_format_type
                       - else
                         = pf_detail.pf_effective_date
                     %td.table_grid_td= pf_detail.effective_to

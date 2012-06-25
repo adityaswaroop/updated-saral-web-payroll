@@ -18,7 +18,7 @@
                   %td Form Date:&nbsp;
                   %td
                     - if @paymonth.from_date?
-                      = l @paymonth.from_date, :format => OptionSetting.date_format_type("",2)
+                      = l @paymonth.from_date, :format => Global.instance.date_format_type
                     - else
                       = @paymonth.from_date
                 %tr
@@ -33,6 +33,6 @@
                   %td To Date:&nbsp;
                   %td
                     - if @paymonth.to_date?
-                      = l @paymonth.to_date, :format => OptionSetting.date_format_type("",2)
+                      = l @paymonth.to_date, :format => Global.instance.date_format_type
                     - else
                       = @paymonth.to_date

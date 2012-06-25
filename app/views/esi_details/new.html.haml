@@ -50,7 +50,7 @@
                     %td.table_grid_td= esi_detail.esi_group_esi_group_name
                     %td.table_grid_td
                       - if esi_detail.esi_effective_date?
-                        = l esi_detail.esi_effective_date, :format => OptionSetting.date_format_type("",2)
+                        = l esi_detail.esi_effective_date, :format => Global.instance.date_format_type
                       - else
                         = esi_detail.esi_effective_date
                     %td.table_grid_td= esi_detail.effective_to

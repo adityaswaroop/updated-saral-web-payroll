@@ -51,7 +51,7 @@
                     %td.table_grid_td= pt_detail.pt_group_name
                     %td.table_grid_td
                       - if pt_detail.pt_effective_date?
-                        = l pt_detail.pt_effective_date, :format => OptionSetting.date_format_type("",2)
+                        = l pt_detail.pt_effective_date, :format => Global.instance.date_format_type
                       - else
                         = pt_detail.pt_effective_date
                     %td.table_grid_td= pt_detail.effective_to
