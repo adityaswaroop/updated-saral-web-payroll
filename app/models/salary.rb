@@ -215,8 +215,6 @@ class Salary < ActiveRecord::Base
     if chk_salary_group_exist.empty?
       employee_salary_calc = []
     else
-      #valid_employee = Employee.select('employees.id,refno, empname,date_of_joining,date_of_leaving').joins("INNER JOIN employee_details ON employees.id = employee_details.employee_id INNER JOIN salary_groups ON employee_details.salary_group_id = salary_groups.id").where("(date_of_leaving IS NULL OR extract(month from date_of_leaving) = #{month_year.month} and extract(year from date_of_leaving) = #{month_year.year}) and salary_groups.id = ? and (effective_to IS NULL OR effective_to = '#{month_year.end_of_month}')", salary_group_id)
-
       valid_employee = Employee.select('employees.id,refno, empname,date_of_joining,date_of_leaving').joins("INNER JOIN employee_details ON employees.id = employee_details.employee_id INNER JOIN salary_groups ON employee_details.salary_group_id = salary_groups.id").where("(date_of_leaving IS NULL OR extract(month from date_of_leaving) = #{month_year.month} and extract(year from date_of_leaving) = #{month_year.year}) and salary_groups.id = ? and (('#{month_year.end_of_month}' between effective_date and effective_to OR effective_to IS NULL) and effective_date <= '#{month_year.beginning_of_month}')", salary_group_id)
 
       employee_salary_calc = []
