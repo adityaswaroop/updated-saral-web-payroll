@@ -101,15 +101,8 @@ $(document).ready(function(){
       $("#option_setting_voluntary_pf").attr("disabled", false);
       }
 
-      var c=0;
-      $("#select_all").click(function(){
-      c++;
-      if (c==1){
-      $("input:checkbox").attr("checked", true);}
-      else{
-      $("input:checkbox").attr("checked",false);c=0}});
 
-      $("#option_setting_pf_applicable").click(function() {
+    $("#option_setting_pf_applicable").click(function() {
 
       if($("#option_setting_pf_applicable").attr('checked')) {
       $("#option_setting_voluntary_pf").attr("disabled", false);

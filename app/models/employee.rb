@@ -1,5 +1,5 @@
 class Employee < ActiveRecord::Base
-  attr_accessible :empname, :date_of_joining, :date_of_leaving, :date_of_birth, :marital_status, :father_name, :spouse_name , :gender, :present_res_no, :present_res_name, :present_street, :present_locality, :present_city, :present_state_id, :perm_res_no, :perm_res_name, :perm_street, :perm_locality, :perm_city, :perm_state_id, :perm_sameas_present , :email, :mobile, :refno, :restrct_pf,:probation_period,:probation_complete_date,:confirmation_date,:salary_start_date,:retirement_date,:handicapped,:emergency_contact_number,:official_mail_id,:leaving_reason,:resignation_date,:notice_period,:remarks
+  attr_accessible :empname, :date_of_joining, :date_of_leaving, :date_of_birth, :marital_status, :father_name, :spouse_name , :gender, :present_res_no, :present_res_name, :present_street, :present_locality, :present_city, :present_state_id, :perm_res_no, :perm_res_name, :perm_street, :perm_locality, :perm_city, :perm_state_id, :perm_sameas_present , :email, :mobile, :refno, :restrct_pf,:probation_period,:probation_complete_date,:confirmation_date,:salary_start_date,:retirement_date,:handicapped,:emergency_contact_number,:official_mail_id,:leaving_reason,:resignation_date,:notice_period,:remarks,:restrict_esi
   acts_as_audited
 
   regex_for_email = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

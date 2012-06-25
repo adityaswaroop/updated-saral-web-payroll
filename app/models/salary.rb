@@ -85,39 +85,45 @@ class Salary < ActiveRecord::Base
     employee_branch = EmployeeDetail.employee_branch month_year,employee_id
     employee_esi_group = Branch.find(employee_branch[0]['branch_id']).esi_group_id
     esi_effective_date_detail = EsiDetail.effective_date employee_branch[0]['branch_id'],employee_esi_group
+    esi_restriction = Employee.find(employee_id).restrict_esi
 
-    if esi_effective_date_detail.empty?
+    if esi_restriction == true
       esi_amount = 0
     else
-      esi_effective_date = esi_effective_date_detail[0]['esi_effective_date']
-      if esi_effective_date <= month_year.beginning_of_month
-        #esi_applicable_salary = SalaryAllotment.select('salary_allotment').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = '#{month_year.beginning_of_month}'")
-        #
-        #if esi_applicable_salary.count > 0
-        #  esi_applicable_salary_amount = esi_applicable_salary
-        #else
-        #  esi_applicable_salary_amount = SalaryAllotment.select('salary_allotment').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = (select MAX(effective_date) from salary_allotments where employee_id = #{employee_id})")
-        #end
+      if esi_effective_date_detail.empty?
+        esi_amount = 0
+      else
+        esi_effective_date = esi_effective_date_detail[0]['esi_effective_date']
+        if esi_effective_date <= month_year.beginning_of_month
+          #esi_applicable_salary = SalaryAllotment.select('salary_allotment').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = '#{month_year.beginning_of_month}'")
+          #
+          #if esi_applicable_salary.count > 0
+          #  esi_applicable_salary_amount = esi_applicable_salary
+          #else
+          #  esi_applicable_salary_amount = SalaryAllotment.select('salary_allotment').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = (select MAX(effective_date) from salary_allotments where employee_id = #{employee_id})")
+          #end
 
-        esi_applicable_salary_amount = Salary.select('salary_amount').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = '#{month_year.beginning_of_month}'")
+          esi_applicable_salary_amount = Salary.select('salary_amount').joins(:salary_group_detail).where("esi_applicability = true and employee_id = #{employee_id} and effective_date = '#{month_year.beginning_of_month}'")
 
-        @esi_applicable_sal = 0
-        esi_applicable_salary_amount.each do |esi_appli_sal|
-          @esi_applicable_sal = @esi_applicable_sal+esi_appli_sal.salary_amount
-        end
+          @esi_applicable_sal = 0
+          esi_applicable_salary_amount.each do |esi_appli_sal|
+            @esi_applicable_sal = @esi_applicable_sal+esi_appli_sal.salary_amount
+          end
 
-        esi_rate_value = EsiGroupRate.find_by_esi_group_id(employee_esi_group)
-        if @esi_applicable_sal <= esi_rate_value[:cut_off]
-          esi_amount = @esi_applicable_sal*(esi_rate_value[:employee_rate]/100)
-          esi_employer_amount = @esi_applicable_sal*(esi_rate_value[:employer_rate]/100)
-          EsiCalculatedValue.create :esi_gross => @esi_applicable_sal, :esi_amount => esi_amount, :esi_employer_amount => esi_employer_amount,:employee_id => employee_id,:effective_date => month_year.beginning_of_month
+          esi_rate_value = EsiGroupRate.find_by_esi_group_id(employee_esi_group)
+          if @esi_applicable_sal <= esi_rate_value[:cut_off]
+            esi_amount = @esi_applicable_sal*(esi_rate_value[:employee_rate]/100)
+            esi_employer_amount = @esi_applicable_sal*(esi_rate_value[:employer_rate]/100)
+            EsiCalculatedValue.create :esi_gross => @esi_applicable_sal, :esi_amount => esi_amount, :esi_employer_amount => esi_employer_amount,:employee_id => employee_id,:effective_date => month_year.beginning_of_month
+          else
+            esi_amount = 0
+          end
         else
           esi_amount = 0
         end
-      else
-        esi_amount = 0
       end
     end
+
     esi_amount
   end
 
