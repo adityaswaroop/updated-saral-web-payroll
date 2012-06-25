@@ -11,6 +11,7 @@ class CreateEveryMonthCompValue < ActiveRecord::Migration
     end
     add_index :every_month_comp_values, :employee_id
     add_index :every_month_comp_values, :paymonth_id
+    add_index :every_month_comp_values, :paymonth_id
     add_index :every_month_comp_values, :salary_group_id
     add_foreign_key :every_month_comp_values, :employees
     add_foreign_key :every_month_comp_values, :paymonths
