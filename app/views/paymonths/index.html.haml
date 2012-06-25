@@ -9,7 +9,7 @@
         %td &nbsp;
       %tr
         %td.std_td
-          %table.table_grid{:width=>700, :cellpadding => 0, :cellspacing => 3}
+          %table.table_grid{:width=>700, :cellpadding => 0, :cellspacing => 3,:id => 'paymonth_table'}
             %tr
               %td{:colspan=>4}
                 - flash.each do |name, msg|
@@ -25,7 +25,7 @@
               - j=0
             - @paymonths.each do |paymonth|
 
-              %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
+              %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}",:id => "row_num_#{j}"}
                 %td.table_grid_td= paymonth.month_name
                 %td.table_grid_td= paymonth.number_of_days
                 %td.table_grid_td
