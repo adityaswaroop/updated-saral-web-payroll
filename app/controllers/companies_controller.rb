@@ -99,4 +99,7 @@ class CompaniesController < ApplicationController
     FileUtils.remove_file(file, force = true)
     redirect_to companies_path
   end
+  def legends
+
+  end
 end
