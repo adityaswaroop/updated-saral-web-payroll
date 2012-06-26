@@ -2,12 +2,12 @@
   $(document).ready(function(){
   $(".salAllotEarn").each(function() {
   $(this).keyup(function(){
-  calculateSum(".salAllotEarn", "#earning_total");
+  calculateSum(".salAllotEarn", "#total_earning_total");
   });
   });
   $(".salAllotDeduct").each(function() {
   $(this).keyup(function(){
-  calculateSum(".salAllotDeduct", "#deduction_total");
+  calculateSum(".salAllotDeduct", "#total_deduction_total");
   });
   });
   });
@@ -88,7 +88,7 @@
                   %table
                     %tr
                       %td{:style=>"padding-left:4px;font-weight:bold;width:180px;color: #468847"} Earnings Total:
-                      %td.table_grid_td= text_field_tag 'earning_total'
+                      %td.table_grid_td= text_field_tag 'total[earning_total]',number_with_precision(@allotSal_earnings[0].earning_total, :precision => 2)
               - @allotSal_deductions.each do |allotSal_deduct|
                 = hidden_field_tag "salAllotment[][id]", allotSal_deduct.id
                 = hidden_field_tag "salAllotment[][month_year]", @effective_date
@@ -116,7 +116,7 @@
                     %table
                       %tr
                         %td{:style=>"padding-left:4px;font-weight:bold;width:180px;color: #e9322d"} Deductions Total:
-                        %td.table_grid_td= text_field_tag 'deduction_total'
+                        %td.table_grid_td= text_field_tag 'total[deduction_total]',number_with_precision(@allotSal_earnings[0].deduction_total, :precision => 2)
               %tr
                 %td
                   = submit_tag "Save"

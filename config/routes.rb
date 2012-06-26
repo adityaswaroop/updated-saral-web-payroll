@@ -100,6 +100,7 @@ UpdatedSaralWebPayroll::Application.routes.draw do
     post 'restore', :on => :collection
     post 'backup_option', :on => :collection
     post 'restore_backup', :on => :collection
+    get 'legends', :on => :collection
   end
 
   resources :salary_group_details do

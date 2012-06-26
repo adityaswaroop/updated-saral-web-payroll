@@ -33,7 +33,7 @@ class SalaryAllotmentsController < ApplicationController
   end
 
   def update
-    SalaryAllotment.update_salary_allotments params[:salAllotment]
+    SalaryAllotment.update_salary_allotments params[:salAllotment], params[:total]
     redirect_to salary_allotments_path(:param1 => "allotted"), notice: 'Salary Allotted successfully'
   end
 

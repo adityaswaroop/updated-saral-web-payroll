@@ -113,13 +113,13 @@ class Salary < ActiveRecord::Base
           end
 
           esi_rate_value = EsiGroupRate.find_by_esi_group_id(employee_esi_group)
-          if @esi_applicable_sal <= esi_rate_value[:cut_off]
+          #if @esi_applicable_sal <= esi_rate_value[:cut_off]
             esi_amount = @esi_applicable_sal*(esi_rate_value[:employee_rate]/100)
             esi_employer_amount = @esi_applicable_sal*(esi_rate_value[:employer_rate]/100)
             EsiCalculatedValue.create :esi_gross => @esi_applicable_sal, :esi_amount => esi_amount, :esi_employer_amount => esi_employer_amount,:employee_id => employee_id,:effective_date => month_year.beginning_of_month
-          else
-            esi_amount = 0
-          end
+          #else
+          #  esi_amount = 0
+          #end
         else
           esi_amount = 0
         end
