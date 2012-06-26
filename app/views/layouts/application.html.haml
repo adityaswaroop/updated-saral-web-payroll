@@ -32,7 +32,7 @@
           %li
             %a{:href => branches_path, :rel => "dropmenu2_b"} Master
           %li
-            %a{:href => leave_takens_path,:rel=>"dropmenu6_b"}Leave
+            %a{:href => leave_takens_path,:rel=>"dropmenu5_b"}Leave
           -#%li
           -#  %a{:href => leave_details_path, :rel => "dropmenu5_b"} Leave
           %li
@@ -40,7 +40,7 @@
           %li
             %a{:href => report_employees_path, :rel => "dropmenu4_b"} Reports
           %li
-            %a{:href => "/doc/UserManual.html",:target=>"_blank"}Help
+            %a{:href => "/doc/UserManual.html",:rel => "dropmenu6_b",:target=>"_blank"}Help
           %li
             %a{:href => logout_path} Logout
       / 1st drop down menu
@@ -73,6 +73,7 @@
         %a{:href => leave_definitions_path} Leave Definitions
         %a{:href => leave_details_path} Leave Details
       #dropmenu6_b.dropmenudiv_b
+        %a{:href => legends_companies_path} Legends
 
       :javascript
         //SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
