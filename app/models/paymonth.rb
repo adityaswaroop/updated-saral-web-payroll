@@ -46,6 +46,33 @@ class Paymonth < ActiveRecord::Base
     result
   end
 
+  def update_default_month
+    saved_default_month = Paymonth.find_by_default_month(true)
+    saved_default_month.update_attribute(:default_month,false) if !saved_default_month.blank?
+    latest_mon_as_default_month
+  end
+
+  def latest_mon_as_default_month
+    current_paymonth = Paymonth.last
+    if !current_paymonth.blank?
+      current_paymonth.update_attribute(:default_month,true)
+      update_global_default_month
+    end
+  end
+
+  def update_paymonths paymonths
+    paymonths.each do |paymonth_det|
+      pay_month = Paymonth.find(paymonth_det[1]['paymonth_id'])
+      pay_month.update_attributes(:default_month=>paymonth_det[1]['default_month'],:month_locked=>paymonth_det[1]['Lock_Month'])
+    end
+    update_global_default_month
+  end
+
+  def update_global_default_month
+    glb = Global.instance
+    glb.setter_paymonth_default_month
+  end
+
   scope :months, :order => 'created_at DESC'
   scope :not_locked_months, lambda { where('month_locked = false').order('created_at DESC') }
 

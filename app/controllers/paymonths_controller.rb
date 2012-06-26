@@ -28,6 +28,7 @@ class PaymonthsController < ApplicationController
         @paymonth = Paymonth.new(:month_year => params_to_save[0],:number_of_days => params_to_save[1],:from_date => params_to_save[2],:to_date => params_to_save[3],:month_name => params_to_save[4])
         respond_to do |format|
           if @paymonth.save
+            @paymonth.update_default_month
             format.html {redirect_to paymonths_url, notice: 'Paymonth was successfully created.' }
             format.json { render json: @paymonth, status: :created, location: @paymonth }
           else
@@ -52,11 +53,8 @@ class PaymonthsController < ApplicationController
   end
 
   def save
-    paymonths = params[:paymonth]
-    paymonths.each do |paymonth_det|
-      pay_month = Paymonth.find(paymonth_det[1]['paymonth_id'])
-      pay_month.update_attributes(:default_month=>paymonth_det[1]['default_month'],:month_locked=>paymonth_det[1]['Lock_Month'])
-    end
+    @paymonth = Paymonth.new
+    @paymonth.update_paymonths params[:paymonth]
     respond_to do |format|
       format.html { redirect_to paymonths_url, notice: "Paymonths updated successfully." }
     end
@@ -71,6 +69,7 @@ class PaymonthsController < ApplicationController
     if( @paymonth.id == first_paymonth.id or @paymonth.id == last_paymonth.id )
       begin
         @paymonth.destroy
+        @paymonth.latest_mon_as_default_month
         flash[:notice] = "Successfully destroyed."
       rescue ActiveRecord::DeleteRestrictionError => e
         @paymonth.errors.add(:base, e)

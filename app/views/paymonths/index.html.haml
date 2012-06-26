@@ -51,7 +51,8 @@
 
               - j=j+1
             %tr
-              %td{:colspan=>2}= submit_tag "Update"
+              - if @count > 0
+                %td{:colspan=>2}= submit_tag "Update"
               %td= hidden_field_tag "paymonth_count",@count
           %br/
           .digg_pagination

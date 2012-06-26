@@ -2,26 +2,26 @@ require 'spec_helper'
 
 describe LeaveTaken do
 
-  describe "should return employee list" do
-    it "should return employee list whose DOL is null and DOJ is before the selected pay month" do
-      paymonth = FactoryGirl.create(:paymonth,:month_name => 'Jan/2012')
-      employee = FactoryGirl.create(:employee)
-      leave_taken = LeaveTaken.new()
-
-      employee_list = leave_taken.employee_list paymonth.month_name
-      employee_list.count.should eq(1)
-    end
-
-    it "should return employee list whose DOL is in same month and DOJ is before the selected pay month" do
-      paymonth = FactoryGirl.create(:paymonth,:month_name => 'Jan/2012')
-      employee = FactoryGirl.create(:employee,:date_of_leaving=>'2012-01-25',:leaving_reason=>'No Reason')
-      leave_taken = LeaveTaken.new()
-
-      employee_list = leave_taken.employee_list paymonth.month_name
-      employee_list.count.should eq(1)
-    end
-
-  end
+  #describe "should return employee list" do
+  #  it "should return employee list whose DOL is null and DOJ is before the selected pay month" do
+  #    paymonth = FactoryGirl.create(:paymonth,:month_name => 'Jan/2012')
+  #    employee = FactoryGirl.create(:employee)
+  #    leave_taken = LeaveTaken.new()
+  #
+  #    employee_list = leave_taken.employee_list paymonth.month_name
+  #    employee_list.count.should eq(1)
+  #  end
+  #
+  #  it "should return employee list whose DOL is in same month and DOJ is before the selected pay month" do
+  #    paymonth = FactoryGirl.create(:paymonth,:month_name => 'Jan/2012')
+  #    employee = FactoryGirl.create(:employee,:date_of_leaving=>'2012-01-25',:leaving_reason=>'No Reason')
+  #    leave_taken = LeaveTaken.new()
+  #
+  #    employee_list = leave_taken.employee_list paymonth.month_name
+  #    employee_list.count.should eq(1)
+  #  end
+  #
+  #end
 
   it "should return employee name" do
     employee = FactoryGirl.create(:employee)

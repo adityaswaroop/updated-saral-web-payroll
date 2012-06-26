@@ -27,7 +27,6 @@ class LeaveTakensController < ApplicationController
     @leave_taken = LeaveTaken.new
     @employee_count = 0
     @leave_detail_date = ''
-    p params
     if !params[:leave_detail_date].blank? and params[:show_emp_list] == "true"
       @leave_taken_employees = Employee.employee_list params[:leave_detail_date]
       @employee_count = @leave_taken_employees.count

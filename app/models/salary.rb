@@ -10,12 +10,13 @@ class Salary < ActiveRecord::Base
 
   def self.salary_month
     effective_date_db = Salary.select("effective_date").uniq
-    condition = "("
+    condition = ""
     effective_date_db.each do |date|
       condition += "from_date = '#{date[:effective_date]}' OR "
     end
     final_condition = condition[0..-4]
-    final_condition += ') and month_locked = false'
+    final_condition.blank? ? tmp_condition = ' month_locked = false' :  tmp_condition = '( '+final_condition+') and month_locked = false'
+    final_condition = tmp_condition
     Paymonth.where(final_condition).order("created_at DESC")
   end
 

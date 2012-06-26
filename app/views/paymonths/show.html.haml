@@ -12,8 +12,8 @@
             %td.std_td
               %table
                 %tr
-                  %td Month Year:&nbsp;
-                  %td= @paymonth.month_year
+                  %td Month Name:&nbsp;
+                  %td= @paymonth.month_name
                 %tr
                   %td Form Date:&nbsp;
                   %td
@@ -22,8 +22,11 @@
                     - else
                       = @paymonth.from_date
                 %tr
-                  %td Month Name:&nbsp;
-                  %td= @paymonth.month_name
+                  %td Month Locked:&nbsp;
+                  %td= @paymonth.month_locked == "true" ? 'Yes':'No'
+                %tr
+                  %td Salary Calculated:&nbsp;
+                  %td= @paymonth.salary_calculated
             %td.std_td
               %table
                 %tr
@@ -36,3 +39,6 @@
                       = l @paymonth.to_date, :format => Global.instance.date_format_type
                     - else
                       = @paymonth.to_date
+                %tr
+                  %td Default Month:&nbsp;
+                  %td= @paymonth.default_month == "true" ? 'Yes':'No'
