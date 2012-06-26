@@ -1,5 +1,5 @@
 class SalaryAllotment < ActiveRecord::Base
-  attr_accessible :employee_id, :employee_detail_id,:effective_date,:salary_head_id,:salary_allotment,:salary_group_detail_id
+  attr_accessible :employee_id, :employee_detail_id,:effective_date,:salary_head_id,:salary_allotment,:salary_group_detail_id, :earning_total, :deduction_total
   acts_as_audited
 
   belongs_to :salary_head
@@ -117,14 +117,14 @@ class SalaryAllotment < ActiveRecord::Base
     sal_heads.size != sal_heads.uniq.size ? true : false
   end
 
-  def self.update_salary_allotments sal_allots
+  def self.update_salary_allotments sal_allots, totals
     sal_allots.each do |sal_allot|
       month_year = Date.strptime sal_allot['month_year'], '%b/%Y'
       sal_allotment = SalaryAllotment.find_by_employee_id_and_employee_detail_id_and_effective_date_and_salary_head_id(sal_allot['employee_id'], sal_allot['employee_detail_id'], month_year.beginning_of_month, sal_allot['salary_head_id'])
       if sal_allotment.nil?
-        SalaryAllotment.create :employee_id=>sal_allot['employee_id'],:employee_detail_id=>sal_allot['employee_detail_id'],:effective_date=>month_year.beginning_of_month,:salary_head_id=>sal_allot['salary_head_id'],:salary_allotment=>sal_allot['salary_allotment'],:salary_group_detail_id=>sal_allot['salary_group_detail_id']
+        SalaryAllotment.create :employee_id=>sal_allot['employee_id'],:employee_detail_id=>sal_allot['employee_detail_id'],:effective_date=>month_year.beginning_of_month,:salary_head_id=>sal_allot['salary_head_id'],:salary_allotment=>sal_allot['salary_allotment'],:salary_group_detail_id=>sal_allot['salary_group_detail_id'], :earning_total=>totals[:earning_total],:deduction_total=>totals[:deduction_total]
       else
-        sal_allotment.update_attributes(:salary_allotment => sal_allot['salary_allotment'])
+        sal_allotment.update_attributes(:salary_allotment => sal_allot['salary_allotment'],:earning_total=>totals[:earning_total],:deduction_total=>totals[:deduction_total])
       end
     end
   end

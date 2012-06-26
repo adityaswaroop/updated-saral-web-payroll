@@ -101,7 +101,8 @@ class Employee < ActiveRecord::Base
   end
 
   def self.employee_with_salary_allotted
-    Employee.joins(:salary_allotments).where("0 < (SELECT SUM(salary_allotment) from salary_allotments WHERE employee_id = employees.id)").group('employees.id')
+    #Employee.joins(:salary_allotments).where("0 < (SELECT SUM(salary_allotment) from salary_allotments WHERE employee_id = employees.id)").group('employees.id')
+    Employee.joins(:salary_allotments).where("(0 < (SELECT SUM(salary_allotment) from salary_allotments WHERE employee_id = employees.id)) OR (SELECT SUM(salary_allotment) from salary_allotments WHERE employee_id = employees.id) IS NULL ").group('employees.id')
   end
 
   def self.chk_dol emp_id
