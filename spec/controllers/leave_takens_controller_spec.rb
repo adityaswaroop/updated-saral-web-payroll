@@ -41,7 +41,7 @@ describe LeaveTakensController do
     end
 
     it "loads the grid with employee list when leave detail date is passes" do
-      get :new, {:leave_detail_date => 'Jan/2012'}
+      get :new, {:leave_detail_date => 'Jan/2012',:show_emp_list=>'true'}
       assigns(:leave_taken).should be_a_new(LeaveTaken)
     end
   end
