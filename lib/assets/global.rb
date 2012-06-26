@@ -22,6 +22,6 @@ class Global
 
   def setter_paymonth_default_month
     pay_month_det = Paymonth.select('id,month_name').where('default_month = true')
-    @default_month = pay_month_det[0]['month_name']
+    @default_month = pay_month_det[0]
   end
 end
