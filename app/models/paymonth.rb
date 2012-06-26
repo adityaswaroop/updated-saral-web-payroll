@@ -38,10 +38,15 @@ class Paymonth < ActiveRecord::Base
       last_paymonth.next_month.strftime("%b/%Y")
   end
 
-  def paymonth_name
-
+  def salary_calculated
+    var_date = Date.strptime month_name, "%b/%Y"
+    emp_list = Employee.employee_list month_name
+    salaried_emp_list = Salary.select('employee_id').where("extract(month from effective_date) = #{var_date.month}").group('employee_id')
+    emp_list.count == salaried_emp_list.length ? result = "Yes" : result = "No"
+    result
   end
 
   scope :months, :order => 'created_at DESC'
+  scope :not_locked_months, lambda { where('month_locked = false').order('created_at DESC') }
 
 end

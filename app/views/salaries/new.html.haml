@@ -24,7 +24,7 @@
                 %table
                   %tr
                     %td{:style=>"width:130px"} Pay Months:
-                    %td= select_tag "month_year", options_from_collection_for_select(Paymonth.months,'month_name','month_name', params[:month_year]),:prompt => 'Select Pay Month',:onchange=>"hide_editor()"
+                    %td= select_tag "month_year", options_from_collection_for_select(Paymonth.not_locked_months,'month_name','month_name', params[:month_year]),:prompt => 'Select Pay Month',:onchange=>"hide_editor()"
               %td
                 %table
                   %tr

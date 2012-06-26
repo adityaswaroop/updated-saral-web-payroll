@@ -9,7 +9,7 @@
         %td &nbsp;
       %tr
         %td.std_td
-          %table.table_grid{:width=>700, :cellpadding => 0, :cellspacing => 3,:id => 'paymonth_table'}
+          %table.table_grid{:width=>757, :cellpadding => 0, :cellspacing => 3,:id => 'paymonth_table'}
             %tr
               %td{:colspan=>4}
                 - flash.each do |name, msg|
@@ -21,6 +21,7 @@
               %td.table_grid_header To Date
               %td.table_grid_header Lock Month
               %td.table_grid_header Default Month
+              %td.table_grid_header Salary Calculated
               %td.table_grid_header{:colspan =>2} Operations
               - j=0
             - @paymonths.each do |paymonth|
@@ -40,11 +41,13 @@
                     = l paymonth.to_date
                 %td.table_grid_td= check_box_tag "Lock_Month[#{j}]",j,paymonth.month_locked,:onclick=>"update(this,'chk_box')"
                 %td.table_grid_td= radio_button_tag "default_month",j, paymonth.default_month, :class => "default_month",:onclick=>"update(this,'rd_btn')"
+                %td.table_grid_td#sal_month= paymonth.salary_calculated
                 %td.table_grid_icon= link_to image_tag('/assets/show.png',:title => "Show Pay Month"), paymonth
                 %td.table_grid_icon= link_to image_tag('/assets/delete.png',:title => "Destroy Pay Month"), paymonth, :data=>{:confirm => 'Are you sure?'}, method: :delete
-                %td= hidden_field_tag "paymonth[#{j}][paymonth_id]",paymonth.id
-                %td= hidden_field_tag "paymonth[#{j}][Lock_Month]",paymonth.month_locked
-                %td= hidden_field_tag "paymonth[#{j}][default_month]",paymonth.default_month
+                = hidden_field_tag "paymonth[#{j}][paymonth_id]",paymonth.id
+                = hidden_field_tag "paymonth[#{j}][Lock_Month]",paymonth.month_locked
+                = hidden_field_tag "paymonth[#{j}][default_month]",paymonth.default_month
+                -#= hidden_field_tag "salary_calculated[#{j}]", paymonth.salary_calculated
 
               - j=j+1
             %tr

@@ -44,22 +44,7 @@ class LeaveTaken < ActiveRecord::Base
     leave_columns.size != leave_columns.uniq.size ? true : false
   end
 
-  def employee_list pay_month
-    pay_month = Date.strptime pay_month, "%b/%Y"
-    employees = Employee.select('id,empname,refno,date_of_leaving').where(" '#{pay_month.beginning_of_month}' >= date_of_joining or #{pay_month.month} = extract(month from date_of_joining) ")
-    employee_list = []
-    i=0
-    employees.each do |employee|
-      if employee.date_of_leaving.nil?
-        employee_list[i] = {:employee_id=>employee.id,:refno=>employee.refno,:empname=>employee.empname}
-        i=i+1
-      elsif employee.date_of_leaving.month == pay_month.month or employee.date_of_leaving >= pay_month.end_of_month
-        employee_list[i] = {:employee_id=>employee.id,:refno=>employee.refno,:empname=>employee.empname}
-        i=i+1
-      end
-    end
-    employee_list
-  end
+
 
   def month_year
     (Date.strptime leave_detail_date, "%Y-%m-%d").strftime("%b/%Y")

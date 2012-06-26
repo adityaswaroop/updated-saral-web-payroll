@@ -26,14 +26,16 @@ class LeaveTakensController < ApplicationController
   def new
     @leave_taken = LeaveTaken.new
     @employee_count = 0
-    if !params[:leave_detail_date].blank?
-      @leave_taken_employees = @leave_taken.employee_list params[:leave_detail_date]
+    @leave_detail_date = ''
+    p params
+    if !params[:leave_detail_date].blank? and params[:show_emp_list] == "true"
+      @leave_taken_employees = Employee.employee_list params[:leave_detail_date]
       @employee_count = @leave_taken_employees.count
-
+    else
+      @leave_detail_date = Global.instance.paymonth_default_month
     end
-
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @leave_taken }
     end
   end
