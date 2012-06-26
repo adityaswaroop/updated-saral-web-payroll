@@ -16,7 +16,7 @@
               %table
                 %tr
                   %td{:width=>160} Effective Month
-                  %td= select_tag "pt_group_rate[paymonth_id]", options_from_collection_for_select(Paymonth.order('created_at ASC'),'id','month_name', params[:id]),:prompt => 'Select Month'
+                  %td= select_tag "pt_group_rate[paymonth_id]", options_from_collection_for_select(Paymonth.order('created_at ASC'),'id','month_name', Global.instance.paymonth_default_month[:id]),:prompt => 'Select Month'
                   = hidden_field_tag "pt_group_rate[pt_group_id]", params[:pt_group_id]
           %tr
             %td.std_td{:colspan=>2}

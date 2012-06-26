@@ -11,7 +11,7 @@
           %table.table_grid{:width=>757, :cellpadding => 0, :cellspacing => 3}
             %tr
               %td{:width => "100px"} Pay Months
-              %td= select_tag "month_year", options_from_collection_for_select(Paymonth.order('created_at DESC'),'month_name','month_name', params[:month_year]),:prompt => 'Select Pay Month'
+              %td= select_tag "month_year", options_from_collection_for_select(Paymonth.order('created_at DESC'),'month_name','month_name', Global.instance.paymonth_default_month[:month_name]),:prompt => 'Select Pay Month'
             %tr
               %td{:colspan=>2}= hidden_field_tag :format, "xls"
 

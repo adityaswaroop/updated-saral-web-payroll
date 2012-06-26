@@ -42,7 +42,7 @@ class Paymonth < ActiveRecord::Base
     var_date = Date.strptime month_name, "%b/%Y"
     emp_list = Employee.employee_list month_name
     salaried_emp_list = Salary.select('employee_id').where("extract(month from effective_date) = #{var_date.month}").group('employee_id')
-    emp_list.count == salaried_emp_list.length ? result = "Yes" : result = "No"
+    (emp_list.count == salaried_emp_list.length and emp_list.count != 0 )? result = "Yes" : result = "No"
     result
   end
 

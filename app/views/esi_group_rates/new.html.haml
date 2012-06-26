@@ -23,7 +23,8 @@
                   %tr
                     %td{:style=>"width:130px"} Effective Month:&nbsp;
                     -if @esi_group_rate.id == nil
-                      %td= f.select :paymonth_id, options_for_select(Paymonth.months.collect {|pm| [ pm.month_name, pm.id ]}, @esi_group_rate.paymonth_id),:prompt => "Select Effective Month"
+                      %td= f.select :paymonth_id,options_from_collection_for_select(Paymonth.months,'id','month_name', Global.instance.paymonth_default_month[:id]),:prompt => 'Select Effective Month'
+
                     -else
                       %td= @month_name
             %tr

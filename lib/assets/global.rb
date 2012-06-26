@@ -5,7 +5,7 @@ class Global
   def initialize
     @date_format = DateFormat.find_by_date_format(OptionSetting.first.date_format).date_format_value
     pay_month_det = Paymonth.select('id,month_name').where('default_month = true')
-    @default_month = pay_month_det[0]['month_name'] if !pay_month_det.blank?
+    @default_month = pay_month_det[0] if !pay_month_det.blank?
   end
 
   def paymonth_default_month

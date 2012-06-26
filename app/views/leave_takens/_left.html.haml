@@ -1,5 +1,5 @@
 %ul
-  %li= link_to 'Add Leave Detail', new_leave_taken_path(:leave_detail_date=>Global.instance.paymonth_default_month,:show_emp_list=>false)
+  %li= link_to 'Add Leave Detail', new_leave_taken_path(:leave_detail_date=>Global.instance.paymonth_default_month[:month_name],:show_emp_list=>false)
   %li= link_to "Generate Sample Template", generate_sample_excel_template_leave_takens_path(:format => "xls")
 
   -#%li= link_to "Upload Leave Opening Balance", upload_leave_opening_balances_path

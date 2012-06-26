@@ -33,8 +33,7 @@
               %table
                 %tr
                   %td{:style=>'width:100px'} Pay Month:&nbsp;
-                  %td= select_tag :leave_detail_date, options_for_select(Paymonth.months.collect{|mon| [mon.month_name,mon.month_name]},params[:leave_detail_date]),{:prompt => 'Select',:onchange=>"hide_editor()",:selected=>'Jan/2012'}
-                  -#%td= button_tag "Get Employee",:type=> 'button',:style=>'height:27px'
+                  %td= select_tag :leave_detail_date, options_for_select(Paymonth.months.collect{|mon| [mon.month_name,mon.month_name]},params[:leave_detail_date]),{:prompt => 'Select',:onchange=>"hide_editor()"}
                   %td.std_td= submit_tag "Get Employee",:style=>'height:27px'
                   = hidden_field_tag "show_emp_list",true
   %tr

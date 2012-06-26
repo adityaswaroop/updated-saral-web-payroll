@@ -1,7 +1,7 @@
 #left_content
   %ul
     %li= link_to 'Back', esi_groups_path
-    %li= link_to 'Add New ESI Group Rates', new_esi_group_rate_path(:params1 => @param_esi_group_id)
+    %li= link_to 'Add New ESI Group Rates', new_esi_group_rate_path(:params1 => @param_esi_group_id,:default_month => Global.instance.paymonth_default_month)
 #right_content
   %h1 Listing ESI Group Rates for #{@esi_group_name}
   %table.std_table{:cellpadding=>0,:cellspacing=>0}
