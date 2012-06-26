@@ -17,7 +17,8 @@ describe EmployeesController do
       :present_state_id => "1",
       :refno => "A1",
       :email => "ganny@gnaa.com",
-      :restrct_pf => false
+      :restrct_pf => false,
+      :restrict_esi => false
     }
   end
 
@@ -29,7 +30,8 @@ describe EmployeesController do
         :present_state_id => "1",
         :refno => "A1",
         :email => "ganny@gnaa.com",
-        :restrct_pf => false
+        :restrct_pf => false,
+        :restrict_esi => false
     }
   end
 
@@ -269,7 +271,7 @@ describe EmployeesController do
     end
   end
 
-  describe "pf_restrict_update" do
+  describe "pf_esi_restrict_update" do
 
     before :each do
       @employee=FactoryGirl.create(:employee)
@@ -283,6 +285,16 @@ describe EmployeesController do
     it "should update employees restrict_pf Value for false" do
       put :pf_restrict_update,:employee_data => [:id => @employee.id, :pf => nil]
       Employee.find_by_id(@employee.id)[:restrct_pf].should eq(false)
+    end
+
+    it "should update employees restrict_esi Value for true" do
+      put :pf_restrict_update,:employee_data => [:id => @employee.id, :esi => true]
+      Employee.find_by_id(@employee.id)[:restrict_esi].should eq(true)
+    end
+
+    it "should update employees restrict_esi Value for false" do
+      put :pf_restrict_update,:employee_data => [:id => @employee.id, :esi => nil]
+      Employee.find_by_id(@employee.id)[:restrict_esi].should eq(false)
     end
   end
 

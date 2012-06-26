@@ -152,6 +152,12 @@ class EmployeesController < ApplicationController
       else
         @val.update_attribute(:restrct_pf,true)
       end
+
+      if value[:esi].nil?
+        @val.update_attribute(:restrict_esi,false)
+      else
+        @val.update_attribute(:restrict_esi,true)
+      end
     end
     redirect_to pf_contribution_restrict_employees_path
   end

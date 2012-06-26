@@ -1,20 +1,35 @@
+%script
+  function checkAll(theForm, cName, allNo_stat) {
+  var formID = document.getElementById(theForm)
+  var n = formID.elements.length;
+  for (var i=0;i<n;i++){
+  if (formID.elements[i].className.indexOf(cName) !=-1){
+  if (allNo_stat.checked) {
+  formID.elements[i].checked = true;
+  } else {
+  formID.elements[i].checked = false;
+  }
+  }
+  }
+  }
 %table.table_grid{:width=>757, :cellpadding => 0, :cellspacing => 3}
   %tr
     %td.table_grid_header Ref No
     %td.table_grid_header Employee Name
-    %td.table_grid_header Gender
     %td.table_grid_header DOJ
-    %td.table_grid_header Email
     %td.table_grid_header
-      = check_box_tag "select_all"
-      Select All
-
+      = check_box_tag "select_all_pf",'',false, :onclick=>"checkAll('RestrictPFESIForm', 'emp_PF',this);"
+      Restrict PF
+    %td.table_grid_header
+      = check_box_tag "select_all_esi",'',false, :onclick=>"checkAll('RestrictPFESIForm', 'emp_ESI',this);"
+      Restrict ESI
+  - i=1
   - @employeesList.each do |employeeList|
     = hidden_field_tag "employee_data[][id]",employeeList.id
     %tr{:class => "#{cycle('table_grid_odd_row', 'table_grid_even_row')}"}
       %td.table_grid_td=  employeeList.refno
       %td.table_grid_td=  employeeList.empname
-      %td.table_grid_td=  employeeList.gender
       %td.table_grid_td= l employeeList.date_of_joining, :format => Global.instance.date_format_type
-      %td.table_grid_td= employeeList.email
-      %td.table_grid_td= check_box_tag "employee_data[][pf]", employeeList.restrct_pf ,employeeList.restrct_pf
+      %td.table_grid_td= check_box_tag "employee_data[][pf]", employeeList.restrct_pf ,employeeList.restrct_pf,:class=>"emp_PF"
+      %td.table_grid_td= check_box_tag "employee_data[][esi]", employeeList.restrict_esi ,employeeList.restrict_esi,:class=>"emp_ESI"
+    - i=i+1
