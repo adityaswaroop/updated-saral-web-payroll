@@ -41,18 +41,27 @@ class SalaryGroupDetailsController < ApplicationController
 
   def create
     @salary_group_detail = SalaryGroupDetail.new(params[:salary_group_detail])
-
+    emp_detls =  EmployeeDetail.find_all_by_salary_group_id(@salary_group_detail.salary_group_id)
+    #emp_detls.each do |emp_det|
+    #  puts emp_det.id
+    #end
     respond_to do |format|
-      if @salary_group_detail.save
-        @emp_details = @salary_group_detail.salary_group.employee_details
-        if @emp_details
-          @emp_details.each do |emp_det|
-            SalaryAllotment.create!(:employee_id => emp_det.employee_id, :employee_detail_id => emp_det.id, :effective_date => emp_det.effective_date, :salary_head_id => @salary_group_detail.salary_head_id, :salary_group_detail_id => @salary_group_detail.id, :salary_allotment =>0)
+      if emp_detls.empty?
+        month_year = params[:salary_group_detail]["effective_month"]
+        eff_date = Date.strptime month_year, '%b/%Y'
+          if @salary_group_detail.save
+            @emp_details = @salary_group_detail.salary_group.employee_details
+            if @emp_details
+              @emp_details.each do |emp_det|
+                SalaryAllotment.create!(:employee_id => emp_det.employee_id, :employee_detail_id => emp_det.id, :effective_date => eff_date.beginning_of_month, :salary_head_id => @salary_group_detail.salary_head_id, :salary_group_detail_id => @salary_group_detail.id, :salary_allotment =>0)
+              end
+            end
+            format.html { redirect_to salary_group_details_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary group detail was successfully created.' }
+          else
+            format.html { redirect_to new_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Head has already been taken' }
           end
-        end
-        format.html { redirect_to salary_group_details_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary group detail was successfully created.' }
       else
-        format.html { redirect_to new_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Head has already been taken' }
+        format.html { redirect_to new_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Group is already assigned' }
       end
     end
   end
@@ -60,14 +69,23 @@ class SalaryGroupDetailsController < ApplicationController
   def update
     effective_month_existence = SalaryGroupDetail.chk_effective_month params[:salary_group_detail]["effective_month"],params[:id]
     if effective_month_existence.empty?
-      @salary_group_detail = SalaryGroupDetail.new(params[:salary_group_detail])
-      if @salary_group_detail.save
-        redirect_to salary_group_details_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary group detail was successfully created.'
+      emp_detls =  EmployeeDetail.find_all_by_salary_group_id(params[:salary_group_detail]["salary_group_id"])
+      if emp_detls.empty?
+        @salary_group_detail = SalaryGroupDetail.new(params[:salary_group_detail])
+        if @salary_group_detail.save
+          redirect_to salary_group_details_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary group detail was successfully created.'
+        else
+          redirect_to new_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Head has already been taken'
+        end
       else
-        redirect_to new_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Head has already been taken'
+        redirect_to edit_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary Group is already assigned'
       end
     else
       if @salary_group_detail.update_attributes(params[:salary_group_detail])
+        if params[:salary_group_detail]["calc_type"] != "Every Month"
+          paymonth_id = Paymonth.find_by_month_name(params[:salary_group_detail]["effective_month"]).id
+          EveryMonthCompValue.destroy_all("paymonth_id=#{paymonth_id} and salary_group_id = #{params[:salary_group_detail]['salary_group_id']}")
+        end
         redirect_to salary_group_details_path(:param1 => params[:salary_group_detail]['salary_group_id']), notice: 'Salary group detail was successfully updated.'
       else
         redirect_to edit_salary_group_detail_path(:param1 => params[:salary_group_detail]['salary_group_id'])

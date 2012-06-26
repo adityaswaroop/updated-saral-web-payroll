@@ -15,17 +15,15 @@ class OptionSetting < ActiveRecord::Base
   def self.date_format_type date_value,opt_value
      if date_value != "" && opt_value == 1
        date=date_value.strftime(Global.instance.date_format_type)
-     end
-     if date_value == "" && opt_value == 2
+     elsif date_value == "" && opt_value == 2
        date=Global.instance.date_format_type
      end
-     return date
+    date
   end
 
   def self.date_format_value
     date_format=OptionSetting.first.date_format
     date_format_value = DateFormat.find_by_date_format(date_format).date_format_value
-    return date_format_value
   end
 
   def self.convert_date aray
