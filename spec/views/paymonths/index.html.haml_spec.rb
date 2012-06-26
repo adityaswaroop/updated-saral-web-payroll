@@ -20,6 +20,7 @@ describe "paymonths/index" do
         :to_date => "2012-01-31"
       )
     ]).stub!(:total_pages).and_return(0)
+    assign(:count,2)
   end
 
   it "renders a list of paymonths" do

@@ -7,8 +7,9 @@
   %table
     - employee_detail[:classification].each do |key,val|
       %tr
-        %td{:width=>130}= ClassificationHeading.find(key).classification_heading_name
-        %td= Classification.find(val).classification_name
+        - if !key.blank?
+          %td{:width=>130}= ClassificationHeading.find(key).classification_heading_name
+          %td= Classification.find(val).classification_name if !val.blank?
 
 
 
